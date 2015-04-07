@@ -1,7 +1,7 @@
 #!/usr/bin/python
-#based on http://stackoverflow.com/a/20034173/1902215
-#first parameter: the file
-#second parameter: the lines
+#Based on http://stackoverflow.com/a/20034173/1902215
+# First parameter: the file
+# Second parameter: the lines number
 import csv, sys, os
 
 divisor = int(sys.argv[2])
