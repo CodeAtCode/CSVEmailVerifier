@@ -30,8 +30,8 @@ if os.path.isfile(sys.argv[1]):
             #Jump the first line that contain the title of the column
             if i != 0:
                 actual = row[int(sys.argv[2])]
-                if(row[int(sys.argv[2])] != '') :
-                    if verify_email_address(row[int(sys.argv[2])]):
+                if(actual != '') :
+                    if verify_email_address(actual.strip()):
                         print(" Email " + (i-1) + " " + actual + " exist!")
                         #Save the output
                         if len(sys.argv) >= 4:
