@@ -30,18 +30,19 @@ if os.path.isfile(sys.argv[1]):
             #Jump the first line that contain the title of the column
             if i != 0:
                 actual = row[int(sys.argv[2])]
-                if verify_email_address(row[int(sys.argv[2])]):
-                    #Save the output
-                    if len(sys.argv) >= 4:
-                        if bool(sys.argv[3]):
-                            correctobject.writerow(row)
-                    print(" Email " + actual + " exist!")
-                else:
-                    #Save the output
-                    if len(sys.argv) >= 4:
-                        if bool(sys.argv[3]):
-                            wrongobject.writerow(row)
-                    print(" Email " + actual + " not exist!")
+                if(row[int(sys.argv[2])] != '') :
+                    if verify_email_address(row[int(sys.argv[2])]):
+                        print(" Email " + actual + " exist!")
+                        #Save the output
+                        if len(sys.argv) >= 4:
+                            if bool(sys.argv[3]):
+                                correctobject.writerow(row)
+                    else:
+                        print(" Email " + actual + " not exist!")
+                        #Save the output
+                        if len(sys.argv) >= 4:
+                            if bool(sys.argv[3]):
+                                wrongobject.writerow(row)
             else:
                 #Inject the first line the output files
                 if len(sys.argv) >= 4:
