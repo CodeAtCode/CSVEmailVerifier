@@ -1,13 +1,14 @@
-#CSVEmailVerifier by Mte90
+#CSVEmailVerifier
 
 * First parameter [mandatory]: the path of the csv file (csv separator column separator as ,)
 * Second parameter [mandatory]: the number of the column
 * Third parameter: export in two different csv file the output [true|false (default)]
+* Forth parameter: jump first line [true|false (default)]
 
 Example: 
 
 ```
-./csvemailverifier.py ./test.csv 2 true
+./csvemailverifier.py ./test.csv 2 true true
 ```
 
 Output:
