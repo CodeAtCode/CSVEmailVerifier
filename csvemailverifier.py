@@ -32,13 +32,13 @@ if os.path.isfile(sys.argv[1]):
                 actual = row[int(sys.argv[2])]
                 if(row[int(sys.argv[2])] != '') :
                     if verify_email_address(row[int(sys.argv[2])]):
-                        print(" Email " + actual + " exist!")
+                        print(" Email " + (i-1) + " " + actual + " exist!")
                         #Save the output
                         if len(sys.argv) >= 4:
                             if bool(sys.argv[3]):
                                 correctobject.writerow(row)
                     else:
-                        print(" Email " + actual + " not exist!")
+                        print(" Email " + (i-1) + " " + actual + " not exist!")
                         #Save the output
                         if len(sys.argv) >= 4:
                             if bool(sys.argv[3]):
