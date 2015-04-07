@@ -3,6 +3,7 @@
 # First parameter [mandatory]: the path of the csv file (csv separator column separator as ,)
 # Second parameter [mandatory]: the number of the column
 # Third parameter: export in two different csv file the output [true|false (default)]
+# Forth parameter: jump first line [true|false (default)]
 import sys, os.path, csv, time
 from emailahoy import verify_email_address
 
@@ -26,19 +27,22 @@ if os.path.isfile(sys.argv[1]):
         #Read the input file
         emailchecking = csv.reader(csvfile, delimiter=',', quotechar='|')
         i = 0
+        if len(sys.argv) >= 5:
+            if bool(sys.argv[4]):
+                i = 1
         for row in emailchecking:
             #Jump the first line that contain the title of the column
             if i != 0:
                 actual = row[int(sys.argv[2])]
                 if(actual != '') :
                     if verify_email_address(actual.strip()):
-                        print(" Email " + (i-1) + " " + actual + " exist!")
+                        print(" Email " + str(i-1) + " " + actual + " exist!")
                         #Save the output
                         if len(sys.argv) >= 4:
                             if bool(sys.argv[3]):
                                 correctobject.writerow(row)
                     else:
-                        print(" Email " + (i-1) + " " + actual + " not exist!")
+                        print(" Email " + str(i-1) + " " + actual + " not exist!")
                         #Save the output
                         if len(sys.argv) >= 4:
                             if bool(sys.argv[3]):
