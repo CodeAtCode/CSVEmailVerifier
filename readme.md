@@ -37,3 +37,14 @@ splitcsv.py ./test.csv 100
 ```
 
 Generate the file with pattern [filename]-[number].csv
+
+#MergeCSV
+
+* First parameter [mandatory]: the pattern for the files in ""
+* Second parameter [mandatory]: output file
+
+```
+mergecsv.py "./wrong.file-*.csv" ./emailwrong.csv
+```
+
+Merge the file with pattern [filename]-[*].csv
