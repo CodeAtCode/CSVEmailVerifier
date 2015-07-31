@@ -1,7 +1,7 @@
 #CSVEmailVerifier
 
 * First parameter [mandatory]: the path of the csv file (csv separator column separator as ,)
-* Second parameter [mandatory]: the number of the column
+* Second parameter [mandatory]: the number of the email column
 * Third parameter: export in two different csv file the output [true|false (default)]
 * Forth parameter: jump first line [true|false (default)]
 
