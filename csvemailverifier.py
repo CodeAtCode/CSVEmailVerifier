@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #CSVEmailVerifier by Mte90
 # First parameter [mandatory]: the path of the csv file (csv separator column separator as ,)
-# Second parameter [mandatory]: the number of the column
+# Second parameter [mandatory]: the number of the email column
 # Third parameter: export in two different csv file the output [true|false (default)]
 # Forth parameter: jump first line [true|false (default)]
 import sys, os.path, csv, time
@@ -20,9 +20,9 @@ if os.path.isfile(sys.argv[1]):
         #Prepare the output files
         if len(sys.argv) >= 4:
             if bool(sys.argv[3]):
-                correctfile = open(os.path.dirname(sys.argv[1]) + '/correct.' + os.path.basename(sys.argv[1]), "wb")
+                correctfile = open(os.path.dirname(sys.argv[1]) + './correct.' + os.path.basename(sys.argv[1]), "wb")
                 correctobject = csv.writer(correctfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
-                wrongfile = open(os.path.dirname(sys.argv[1]) + '/wrong.' + os.path.basename(sys.argv[1]), "wb")
+                wrongfile = open(os.path.dirname(sys.argv[1]) + './wrong.' + os.path.basename(sys.argv[1]), "wb")
                 wrongobject = csv.writer(wrongfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         #Read the input file
         emailchecking = csv.reader(csvfile, delimiter=',', quotechar='|')
@@ -32,7 +32,9 @@ if os.path.isfile(sys.argv[1]):
                 i = 1
         for row in emailchecking:
             #Jump the first line that contain the title of the column
-            if i != 0:
+            if i == 1:
+                pass
+            elif i != 0:
                 actual = row[int(sys.argv[2])]
                 if(actual != '') :
                     if verify_email_address(actual.strip()):
