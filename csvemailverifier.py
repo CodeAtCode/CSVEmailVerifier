@@ -43,12 +43,14 @@ if os.path.isfile(sys.argv[1]):
                         if len(sys.argv) >= 4:
                             if bool(sys.argv[3]):
                                 correctobject.writerow(row)
+                                correctfile.flush()
                     else:
                         print(" Email " + str(i-1) + " " + actual + " not exist!")
                         #Save the output
                         if len(sys.argv) >= 4:
                             if bool(sys.argv[3]):
                                 wrongobject.writerow(row)
+                                wrongfile.flush()
             else:
                 #Inject the first line the output files
                 if len(sys.argv) >= 4:
