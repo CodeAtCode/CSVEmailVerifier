@@ -1,12 +1,14 @@
 #!/usr/bin/python
-#Based on http://stackoverflow.com/a/20034173/1902215
+# Based on http://stackoverflow.com/a/20034173/1902215
 # First parameter: the file
 # Second parameter: the lines number
-import csv, sys, os
+import csv
+import os
+import sys
 
 divisor = int(sys.argv[2])
 
-outfileno = 1
+outfile_no = 1
 outfile = None
 
 if os.path.isfile(sys.argv[1]):
@@ -15,9 +17,9 @@ if os.path.isfile(sys.argv[1]):
             if index % divisor == 0:
                 if outfile is not None:
                     outfile.close()
-                outfilename = os.path.splitext(sys.argv[1])[0] + '-{}.csv'.format(outfileno)
-                outfile = open(outfilename, 'w')
-                outfileno += 1
+                outfile_name = os.path.splitext(sys.argv[1])[0] + '-{}.csv'.format(outfile_no)
+                outfile = open(outfile_name, 'w')
+                outfile_no += 1
                 writer = csv.writer(outfile)
             writer.writerow(row)
 

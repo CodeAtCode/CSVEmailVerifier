@@ -1,7 +1,8 @@
 #!/usr/bin/python
-#First parameter: the pattern for the files in ""
-#Second parameter: output file
-import glob, sys
+# First parameter: the pattern for the files in ""
+# Second parameter: output file
+import glob
+import sys
 
 read_files = sorted(glob.glob(sys.argv[1]))
 
