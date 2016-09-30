@@ -28,9 +28,12 @@ if os.path.isfile(sys.argv[1]):
         # Prepare the output files
         if len(sys.argv) >= 4:
             if bool(sys.argv[3]):
-                correct_file = open(os.path.dirname(sys.argv[1]) + './correct.' + os.path.basename(sys.argv[1]), "wb")
+                dirname = os.path.dirname(sys.argv[1])
+                if(os.path.dirname(sys.argv[1]) == '.'):
+                    dirname=''
+                correct_file = open(dirname + './correct.' + os.path.basename(sys.argv[1]), "wb")
                 correct_object = csv.writer(correct_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
-                wrong_file = open(os.path.dirname(sys.argv[1]) + './wrong.' + os.path.basename(sys.argv[1]), "wb")
+                wrong_file = open(dirname + './wrong.' + os.path.basename(sys.argv[1]), "wb")
                 wrong_object = csv.writer(wrong_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         # Read the input file
         email_checking = csv.reader(csv_file, delimiter=',', quotechar='|')
