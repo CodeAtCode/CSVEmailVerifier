@@ -13,7 +13,11 @@ from emailahoy import verify_email_address
 
 start_time = time.time()
 if len(sys.argv) < 3:
-    print("Missing some parameters!")
+    print("CSVEmailVerifier by Mte90")
+    print("First parameter [mandatory]: the path of the csv file (csv separator column separator as ,)")
+    print("Second parameter [mandatory]: the number of the email column")
+    print("Third parameter: export in two different csv file the output [true|false (default)]")
+    print("Forth parameter: jump first line [true|false (default)]")
     sys.exit()
 
 print("CSVEmailVerifier 1.0 by Mte90 for Codeat - https://github.com/CodeAtCode")
