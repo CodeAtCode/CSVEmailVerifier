@@ -9,7 +9,7 @@ import os.path
 import sys
 import time
 
-from emailahoy import verify_email_address
+from email_validator import validate_email
 
 start_time = time.time()
 if len(sys.argv) < 3:
@@ -21,6 +21,15 @@ if len(sys.argv) < 3:
     sys.exit()
 
 print("CSVEmailVerifier 1.0 by Mte90 for Codeat - https://github.com/CodeAtCode")
+
+
+def validate(email):
+    try:
+        validate_email(email)
+    except:
+        return False
+    return True
+
 
 # Check if file exists
 if os.path.isfile(sys.argv[1]):
@@ -58,7 +67,7 @@ if os.path.isfile(sys.argv[1]):
             else:
                 email = row[position]
                 if email != '':
-                    if verify_email_address(email.strip()):
+                    if validate(email.strip()):
                         print(" Email " + str(line_no - 1) + " " + email + " exist!")
                         # Save the output
                         if to_write:
