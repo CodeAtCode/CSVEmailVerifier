@@ -21,66 +21,65 @@ if len(sys.argv) < 3:
     sys.exit()
 
 print("CSVEmailVerifier 1.0 by Mte90 for Codeat - https://github.com/CodeAtCode")
-# Check file exist
+
+# Check if file exists
 if os.path.isfile(sys.argv[1]):
-    with open(sys.argv[1], 'rb') as csv_file:
+    file = sys.argv[1]
+    position = int(sys.argv[2])      # Column no. for the email
+    to_jump = False
+    to_write = False
+    if len(sys.argv) >= 4 and sys.argv[3].lower() == 'true':
+        to_write = True
+    if len(sys.argv) == 5 and sys.argv[4].lower() == 'true':
+        to_jump = True
+
+    with open(file, 'rb') as csv_file:
         print("Evaluating in progress")
         # Prepare the output files
-        if len(sys.argv) >= 4:
-            if bool(sys.argv[3]):
-                dirname = os.path.dirname(sys.argv[1])
-                if(os.path.dirname(sys.argv[1]) == '.'):
-                    dirname=''
-                correct_file = open(dirname + './correct.' + os.path.basename(sys.argv[1]), "wb")
-                correct_object = csv.writer(correct_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
-                wrong_file = open(dirname + './wrong.' + os.path.basename(sys.argv[1]), "wb")
-                wrong_object = csv.writer(wrong_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        if to_write:
+            dirname = os.path.dirname(file)
+            if(dirname == '.'):
+                dirname = ''
+            correct_file = open(dirname + './correct.' + os.path.basename(file), "wb")
+            correct_object = csv.writer(correct_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+            wrong_file = open(dirname + './wrong.' + os.path.basename(file), "wb")
+            wrong_object = csv.writer(wrong_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+
         # Read the input file
         email_checking = csv.reader(csv_file, delimiter=',', quotechar='|')
-        i = 0
-        if len(sys.argv) >= 5:
-            if bool(sys.argv[4]):
-                i = 1
+        line_no = 0
         for row in email_checking:
-            # Jump the first line that contain the title of the column
-            if i == 1:
-                pass
-            elif i != 0:
-                actual = row[int(sys.argv[2])]
-                if actual != '':
-                    if verify_email_address(actual.strip()):
-                        print(" Email " + str(i - 1) + " " + actual + " exist!")
-                        # Save the output
-                        if len(sys.argv) >= 4:
-                            if bool(sys.argv[3]):
-                                correct_object.writerow(row)
-                                correct_file.flush()
-                    else:
-                        print(" Email " + str(i - 1) + " " + actual + " not exist!")
-                        # Save the output
-                        if len(sys.argv) >= 4:
-                            if bool(sys.argv[3]):
-                                wrong_object.writerow(row)
-                                wrong_file.flush()
+            line_no += 1
+            # Reading the first line that contain the title of the column
+            if line_no == 1:
+                if not(to_jump) and to_write:
+                    wrong_object.writerow(row)
+                    correct_object.writerow(row)
             else:
-                # Inject the first line the output files
-                if len(sys.argv) >= 4:
-                    if bool(sys.argv[3]):
-                        wrong_object.writerow(row)
-                        correct_object.writerow(row)
-            i += 1
-        # Close the output files
-        if len(sys.argv) >= 4:
-            if bool(sys.argv[3]):
-                correct_file.close()
-                wrong_file.close()
-                print("Check in the same path of the input file for the correct." + os.path.basename(
-                    sys.argv[1]) + " and wrong." + os.path.basename(sys.argv[1]) + " output file")
+                email = row[position]
+                if email != '':
+                    if verify_email_address(email.strip()):
+                        print(" Email " + str(line_no - 1) + " " + email + " exist!")
+                        # Save the output
+                        if to_write:
+                            correct_object.writerow(row)
+                            correct_file.flush()
+                    else:
+                        print(" Email " + str(line_no - 1) + " " + email + " not exist!")
+                        # Save the output
+                        if to_write:
+                            wrong_object.writerow(row)
+                            wrong_file.flush()
+
+        if to_write:
+            print("Check in the same path of the input file for the correct." + os.path.basename(
+                file) + " and wrong." + os.path.basename(file) + " output file")
         # File elaboration finished
         calculate = int(time.time() - start_time)
         if calculate == 0:
             calculate = 1
-        print("Processed " + str(i - 1) + " email in " + str(calculate) + " seconds")
+        print("Processed " + str(line_no - 1) + " emails in " + str(calculate) + " seconds")
+
 else:
-    print("The file" + sys.argv[1] + " not exist")
+    print("The file" + sys.argv[1] + " does not exist")
     sys.exit()
