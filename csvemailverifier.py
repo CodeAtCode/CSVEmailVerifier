@@ -9,7 +9,7 @@ import os.path
 import sys
 import time
 
-from emailahoy import verify_email_address
+from email_validator import validate_email
 
 start_time = time.time()
 if len(sys.argv) < 3:
@@ -21,6 +21,15 @@ if len(sys.argv) < 3:
     sys.exit()
 
 print("CSVEmailVerifier 1.0 by Mte90 for Codeat - https://github.com/CodeAtCode")
+
+
+def validate(email):
+    try:
+        validate_email(email)
+    except:
+        return False
+    return True
+
 
 # Check if file exists
 if os.path.isfile(sys.argv[1]):
@@ -34,7 +43,7 @@ if os.path.isfile(sys.argv[1]):
         to_jump = True
 
     with open(file, 'rb') as csv_file:
-        print("Evaluating in progress")
+        print("Evaluating in progress...")
         # Prepare the output files
         if to_write:
             dirname = os.path.dirname(file)
@@ -58,27 +67,30 @@ if os.path.isfile(sys.argv[1]):
             else:
                 email = row[position]
                 if email != '':
-                    if verify_email_address(email.strip()):
-                        print(" Email " + str(line_no - 1) + " " + email + " exist!")
+                    if validate(email.strip()):
+                        print(" Email " + str(line_no - 1) + " " + email + " exists!")
                         # Save the output
                         if to_write:
                             correct_object.writerow(row)
                             correct_file.flush()
                     else:
-                        print(" Email " + str(line_no - 1) + " " + email + " not exist!")
+                        print(" Email " + str(line_no - 1) + " " + email + " not exists!")
                         # Save the output
                         if to_write:
                             wrong_object.writerow(row)
                             wrong_file.flush()
 
         if to_write:
-            print("Check in the same path of the input file for the correct." + os.path.basename(
-                file) + " and wrong." + os.path.basename(file) + " output file")
+            correct_file.close()
+            wrong_file.close()
+            print("Check in the same path of the input file for the 'correct." + os.path.basename(
+                file) + "' and 'wrong." + os.path.basename(file) + "' output file.")
         # File elaboration finished
         calculate = int(time.time() - start_time)
         if calculate == 0:
             calculate = 1
-        print("Processed " + str(line_no - 1) + " emails in " + str(calculate) + " seconds")
+        print("Processed " + str(line_no - 1) + " emails in " +\
+         str(calculate) + " second" + ['', 's'][bool(calculate-1)]) + "."
 
 else:
     print("The file" + sys.argv[1] + " does not exist")

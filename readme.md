@@ -24,7 +24,7 @@ Processed 2 email in 1 seconds
 ##Requirements
 
 ```
-pip install python-emailahoy 
+pip install email_validator 
 ```
 
 #SplitCSV
