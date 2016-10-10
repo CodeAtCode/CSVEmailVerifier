@@ -83,13 +83,14 @@ if os.path.isfile(sys.argv[1]):
         if to_write:
             correct_file.close()
             wrong_file.close()
-            print("Check in the same path of the input file for the correct." + os.path.basename(
-                file) + " and wrong." + os.path.basename(file) + " output file")
+            print("Check in the same path of the input file for the 'correct." + os.path.basename(
+                file) + "' and 'wrong." + os.path.basename(file) + "' output file.")
         # File elaboration finished
         calculate = int(time.time() - start_time)
         if calculate == 0:
             calculate = 1
-        print("Processed " + str(line_no - 1) + " emails in " + str(calculate) + " seconds")
+        print("Processed " + str(line_no - 1) + " emails in " +\
+         str(calculate) + " second" + ['', 's'][bool(calculate-1)]) + "."
 
 else:
     print("The file" + sys.argv[1] + " does not exist")
