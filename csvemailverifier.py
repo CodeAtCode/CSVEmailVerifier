@@ -43,7 +43,7 @@ if os.path.isfile(sys.argv[1]):
         to_jump = True
 
     with open(file, 'rb') as csv_file:
-        print("Evaluating in progress")
+        print("Evaluating in progress...")
         # Prepare the output files
         if to_write:
             dirname = os.path.dirname(file)
@@ -68,19 +68,21 @@ if os.path.isfile(sys.argv[1]):
                 email = row[position]
                 if email != '':
                     if validate(email.strip()):
-                        print(" Email " + str(line_no - 1) + " " + email + " exist!")
+                        print(" Email " + str(line_no - 1) + " " + email + " exists!")
                         # Save the output
                         if to_write:
                             correct_object.writerow(row)
                             correct_file.flush()
                     else:
-                        print(" Email " + str(line_no - 1) + " " + email + " not exist!")
+                        print(" Email " + str(line_no - 1) + " " + email + " not exists!")
                         # Save the output
                         if to_write:
                             wrong_object.writerow(row)
                             wrong_file.flush()
 
         if to_write:
+            correct_file.close()
+            wrong_file.close()
             print("Check in the same path of the input file for the correct." + os.path.basename(
                 file) + " and wrong." + os.path.basename(file) + " output file")
         # File elaboration finished
