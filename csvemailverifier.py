@@ -53,6 +53,8 @@ if os.path.isfile(sys.argv[1]):
             correct_object = csv.writer(correct_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
             wrong_file = open(dirname + './wrong.' + os.path.basename(file), "wb")
             wrong_object = csv.writer(wrong_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+            missing_file = open(dirname + './missing.' + os.path.basename(file), "wb")
+            missing_object = csv.writer(missing_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 
         # Read the input file
         email_checking = csv.reader(csv_file, delimiter=',', quotechar='|')
@@ -79,12 +81,19 @@ if os.path.isfile(sys.argv[1]):
                         if to_write:
                             wrong_object.writerow(row)
                             wrong_file.flush()
+                else:
+                    print(" Email " + str(line_no - 1) + " is empty!")
+                    if to_write:
+                        missing_object.writerow(row)
+                        missing_file.flush()
 
         if to_write:
             correct_file.close()
             wrong_file.close()
-            print("Check in the same path of the input file for the 'correct." + os.path.basename(
-                file) + "' and 'wrong." + os.path.basename(file) + "' output file.")
+            missing_file.close()
+            print("Check in the same path of the input file for the 'correct."
+             + os.path.basename(file) + "', 'wrong." + os.path.basename(file)
+             + "', and 'missing." + os.path.basename(file) + "' output files.")
         # File elaboration finished
         calculate = int(time.time() - start_time)
         if calculate == 0:
