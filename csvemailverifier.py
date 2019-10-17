@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 # CSVEmailVerifier by Mte90
 # First parameter [mandatory]: the path of the csv file (csv separator column separator as ,)
 # Second parameter [mandatory]: the number of the email column
@@ -49,11 +49,11 @@ if os.path.isfile(sys.argv[1]):
             dirname = os.path.dirname(file)
             if(dirname == '.'):
                 dirname = ''
-            correct_file = open(dirname + './correct.' + os.path.basename(file), "wb")
+            correct_file = open(dirname + '/correct.' + os.path.basename(file), "wb")
             correct_object = csv.writer(correct_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
-            wrong_file = open(dirname + './wrong.' + os.path.basename(file), "wb")
+            wrong_file = open(dirname + '/wrong.' + os.path.basename(file), "wb")
             wrong_object = csv.writer(wrong_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
-            missing_file = open(dirname + './missing.' + os.path.basename(file), "wb")
+            missing_file = open(dirname + '/missing.' + os.path.basename(file), "wb")
             missing_object = csv.writer(missing_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 
         # Read the input file

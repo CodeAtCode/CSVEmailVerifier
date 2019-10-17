@@ -1,4 +1,4 @@
-#CSVEmailVerifier
+# CSVEmailVerifier
 
 * First parameter [mandatory]: the path of the csv file (csv separator column separator as ,)
 * Second parameter [mandatory]: the number of the email column
@@ -21,13 +21,13 @@ Check in the same path of the input file for the correct.test.csv and wrong.test
 Processed 2 email in 1 seconds
 ```
 
-##Requirements
+## Requirements
 
 ```
 pip install email_validator 
 ```
 
-#SplitCSV
+# SplitCSV
 
 * First parameter [mandatory]: the file
 * Second parameter [mandatory]: the lines number
@@ -38,7 +38,7 @@ splitcsv.py ./test.csv 100
 
 Generate the file with pattern [filename]-[number].csv
 
-#MergeCSV
+# MergeCSV
 
 * First parameter [mandatory]: the pattern for the files in ""
 * Second parameter [mandatory]: output file
