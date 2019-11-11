@@ -48,7 +48,7 @@ if os.path.isfile(sys.argv[1]):
         if to_write:
             dirname = os.path.dirname(file)
             if(dirname == '.'):
-                dirname = ''
+                dirname = '.'
             correct_file = open(dirname + '/correct.' + os.path.basename(file), "wb")
             correct_object = csv.writer(correct_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
             wrong_file = open(dirname + '/wrong.' + os.path.basename(file), "wb")
